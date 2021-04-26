@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "28ceb621-3880-447b-85b9-23df6d998628",
+		"name": "PetClinic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"secondAdmin\",\r\n    \"password\": \"password\",\r\n    \"enabled\": true,\r\n    \"roles\": [\r\n    \t{ \"name\" : \"OWNER_ADMIN\" }\r\n\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Owners",
+			"item": [
+				{
+					"name": "Get all Owners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PetAppUrl}}owners",
+							"host": [
+								"{{PetAppUrl}}owners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Owner By LastName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PetAppUrl}}owners",
+							"host": [
+								"{{PetAppUrl}}owners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Owner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"firstName\": \"Mona\",\r\n        \"lastName\": \"Magnus\",\r\n        \"address\": \"125 New Avenue\",\r\n        \"city\": \"New York\",\r\n        \"telephone\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PetAppUrl}}owners",
+							"host": [
+								"{{PetAppUrl}}owners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Owner By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PetAppUrl}}owners/{{OwnerId}}",
+							"host": [
+								"{{PetAppUrl}}owners"
+							],
+							"path": [
+								"{{OwnerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Owner",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"firstName\": \"Maddy\",\r\n        \"lastName\": \"Magnus\",\r\n        \"address\": \"10 New Avenue st\",\r\n        \"city\": \"New Delhi\",\r\n        \"telephone\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PetAppUrl}}owners/{{OwnerId}}",
+							"host": [
+								"{{PetAppUrl}}owners"
+							],
+							"path": [
+								"{{OwnerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Owner By Id Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PetAppUrl}}owners/{{OwnerId}}",
+							"host": [
+								"{{PetAppUrl}}owners"
+							],
+							"path": [
+								"{{OwnerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Owner",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var url = pm.environment.get(\"PetAppUrl\")  +  pm.globals.get(\"OwnerId\");\r",
+									"\r",
+									"const getRequest = {\r",
+									"        url: url,\r",
+									"        method: 'GET'\r",
+									"};\r",
+									"\r",
+									"pm.sendRequest(getRequest, function (err, res) {\r",
+									"    if (err) { \r",
+									"        console.log(err);\r",
+									"    }\r",
+									"    \r",
+									"    console.log(res);\r",
+									"    \r",
+									"    pm.test('Response should be Not Found', function () {\r",
+									"        pm.expect(res.status).to.include(\"Not Found\");\r",
+									"    });\r",
+									"    \r",
+									"    pm.test(\"Response code 404\", function() {\r",
+									"        pm.expect(res.code).to.equal(404);\r",
+									"    })\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"firstName\": \"Mona\",\r\n        \"lastName\": \"maggi\",\r\n        \"address\": \"125 New Avenue\",\r\n        \"city\": \"New York\",\r\n        \"telephone\": \"1235667890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PetAppUrl}}owners/{{OwnerId}}?=",
+							"host": [
+								"{{PetAppUrl}}owners"
+							],
+							"path": [
+								"{{OwnerId}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pets",
+			"item": [
+				{
+					"name": "Get All Pets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PetAppUrl}}pets",
+							"host": [
+								"{{PetAppUrl}}pets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pet Types",
+			"item": [
+				{
+					"name": "Get All Pettypes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PetAppUrl}}{{pettypes}}",
+							"host": [
+								"{{PetAppUrl}}{{pettypes}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pet Type By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PetAppUrl}}{{pettypes}}/8",
+							"host": [
+								"{{PetAppUrl}}{{pettypes}}"
+							],
+							"path": [
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Pettype",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \r\n        \"name\": \"Insect\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PetAppUrl}}{{pettypes}}",
+							"host": [
+								"{{PetAppUrl}}{{pettypes}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
