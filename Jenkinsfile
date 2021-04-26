@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'nohup mvn spring-boot:run &'
                 sleep(10)
-            }PetClinic.postman_collection.json
+            }
         stage('Postman') {
             steps {
               sh 'newman run PetClinic.postman_collection.json -- environment PetClinic_Environment.postman_environment.json -- reporters junit'
